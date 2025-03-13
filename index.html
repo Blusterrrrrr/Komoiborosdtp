@@ -26,7 +26,7 @@
             padding: 20px;
         }
 
-        /* Container utama */
+        /* Container interface1 */
         .container {
             background-color: #ffffff;
             padding: 30px;
@@ -36,7 +36,17 @@
             width: 100%;
             text-align: center;
         }
-
+        
+		/* Container interface2 */
+        .container2 {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 0px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+        }
         /* Judul halaman */
         h1 {
             font-size: 24px;
@@ -122,6 +132,8 @@
             border: 1px solid #ccc;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             z-index: 1000;
+			max-width: 500px;
+            width: 100%;
         }
 
         #overlay {
@@ -135,23 +147,29 @@
             z-index: 999;
         }
 
-        .word-list {
-            margin-top: 20px;
+        /* Gaya untuk grid layout */
+        #wordListContainer {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 kolum */
+			column-gap: 20px; /* Jarak antara kolum */
+			row-gap: 1px; /* Jarak antara baris */
         }
 
         .word-item {
-            padding: 10px;
-            border-bottom: 1px solid #ccc;
+            padding: 2px;
+            border: 0px solid #ccc;
+            text-align: left;
+            cursor: pointer;
         }
 
         .word {
-            cursor: pointer;
-            color: blue;
-            text-decoration: underline;
+            font-weight: bold;
+            color: #007bff;
+            transition: color 0.3s;
         }
 
         .word:hover {
-            color: darkblue;
+            color: #0056b3;
         }
 
         /* Gaya untuk navigasi */
@@ -160,7 +178,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            background-color: rgba(0, 0, 0, 0);
+            background-color: rgba(255, 255, 255, 0.9);
             display: flex;
             justify-content: center;
             padding: 10px 0;
@@ -192,35 +210,6 @@
 
         body {
             padding-top: 60px;
-        }
-
-        .word-list {
-            text-align: left;
-            padding: 20px;
-            max-width: 800px;
-            margin: auto;
-        }
-
-        .word-list h2 {
-            text-align: left;
-            font-size: 24px;
-            margin-bottom: 15px;
-        }
-
-        .word-item {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-            cursor: pointer;
-        }
-
-        .word {
-            font-weight: bold;
-            color: #007bff;
-            transition: color 0.3s;
-        }
-
-        .word:hover {
-            color: #0056b3;
         }
 
         /* Gaya untuk footer */
@@ -273,7 +262,7 @@
         <button id="btnInterface2">Nuludan boros</button>
     </nav>
 
-    <!-- kod untuk interface 1 -->
+    <!-- Kod untuk interface 1 -->
     <div class="container" id="interface1">
         <h1>Komoiboros Digital Boros Kadazandusun - Boros Melayu</h1>
 
@@ -291,8 +280,8 @@
     </div>
 
     <!-- Interface 2: Paparan Kata dari Database -->
-    <div class="word-list" id="interface2" style="display: none;">
-        <h2>Nuludan boros id komoiboros diti:</h2>
+    <div class="container2" class="word-list" id="interface2" style="display: none;">
+        <h1>Nuludan boros id komoiboros diti:</h1>
         <div id="wordListContainer"></div>
     </div>
     
@@ -312,48 +301,48 @@
     
     <script>
         let database = {
-    "modop": {
-        "terjemahan": "tidur",
-        "takrifan": "dlm keadaan tidak sedar dgn mata terpejam (kerana berehat)",
-        "golongan_kata": "kata kerja",
-        "contoh_ayat": "modop oku. saya tidur."
-	},
-    "asana": {
-        "terjemahan": "benci",
-        "takrifan": "sikap tidak menyukai",
-        "golongan_kata": "kata sifat",
-        "contoh_ayat": "Asana oku no dialo. Saya benci dia."
-	},
-    "ananam": {
-        "terjemahan": "enak",
-        "takrifan": "sedap, nyaman",
-        "golongan_kata": "kata sifat",
-        "contoh_ayat": "Ananam no ilo punti. Pisang itu enak. "
-	},
-    "atod": {
-        "terjemahan": "hantar",
-        "takrifan": "-",
-        "golongan_kata": "kata kerja",
-        "contoh_ayat": "-"
-	},
-    "aadang": {
-        "terjemahan": "seimbang",
-        "takrifan": "setimbang, sama berat, tidak berat sebelah",
-        "golongan_kata": "kata sifat",
-        "contoh_ayat": "Aadang oo kinoilihan dilo tindikohon. Kerusi itu berada dalam keadaan seimbang."
-	},
-    "aagab": {
-        "terjemahan": "tergesa-gesa",
-        "takrifan": "bergopoh-gapah, terburu-buru, cepat-cepat",
-        "golongan_kata": "kata sifat",
-        "contoh_ayat": "Aagab po isio mamanau moi sikul tu nokoloboi. Dia tergesa-gesa berjalan ke sekolah kerana bangun lewat."
-	},
-    "abal": {
-        "terjemahan": "khabar",
-        "takrifan": "perkhabaran laporan tentang sesuatu hal atau kejadian, berita, warta",
-        "golongan_kata": "kata nama",
-        "contoh_ayat": "Nunu abal di kaantakan konihab. Apa khabar tentang perisitiwa kemarin."
-	}
+            "modop": {
+                "terjemahan": "tidur",
+                "takrifan": "dlm keadaan tidak sedar dgn mata terpejam (kerana berehat)",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "modop oku. saya tidur."
+            },
+            "asana": {
+                "terjemahan": "benci",
+                "takrifan": "sikap tidak menyukai",
+                "golongan_kata": "kata sifat",
+                "contoh_ayat": "Asana oku no dialo. Saya benci dia."
+            },
+            "ananam": {
+                "terjemahan": "enak",
+                "takrifan": "sedap, nyaman",
+                "golongan_kata": "kata sifat",
+                "contoh_ayat": "Ananam no ilo punti. Pisang itu enak. "
+            },
+            "atod": {
+                "terjemahan": "hantar",
+                "takrifan": "-",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "-"
+            },
+            "aadang": {
+                "terjemahan": "seimbang",
+                "takrifan": "setimbang, sama berat, tidak berat sebelah",
+                "golongan_kata": "kata sifat",
+                "contoh_ayat": "Aadang oo kinoilihan dilo tindikohon. Kerusi itu berada dalam keadaan seimbang."
+            },
+            "aagab": {
+                "terjemahan": "tergesa-gesa",
+                "takrifan": "bergopoh-gapah, terburu-buru, cepat-cepat",
+                "golongan_kata": "kata sifat",
+                "contoh_ayat": "Aagab po isio mamanau moi sikul tu nokoloboi. Dia tergesa-gesa berjalan ke sekolah kerana bangun lewat."
+            },
+            "abal": {
+                "terjemahan": "khabar",
+                "takrifan": "perkhabaran laporan tentang sesuatu hal atau kejadian, berita, warta",
+                "golongan_kata": "kata nama",
+                "contoh_ayat": "Nunu abal di kaantakan konihab. Apa khabar tentang perisitiwa kemarin."
+            }
         };
 
         // Fungsi untuk memformat contoh ayat
@@ -361,7 +350,7 @@
             const [kadazandusun, terjemahan] = contohAyat.split(". ");
             return `
                 &nbsp;&nbsp;${kadazandusun}.<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;${terjemahan}
+                <i>&nbsp;&nbsp;&nbsp;&nbsp;${terjemahan}</i>
             `;
         }
 
@@ -375,9 +364,9 @@
                     const data = database[word];
                     result += `
                         <div class="translation-item">
-                            <strong>Kopodolinan:</strong> <br>${data.terjemahan}<br><br>
-                            <strong>Kotolinahasan:</strong> <br>${data.takrifan}<br><br>
-                            <strong>Nuludan boros:</strong> <br>${data.golongan_kata}<br><br>
+                            <strong>Kopodolinan:</strong> <br><i>${data.terjemahan}</i><br><br>
+                            <strong>Kotolinahasan:</strong> <br><i>${data.takrifan}</i><br><br>
+                            <strong>Nuludan boros:</strong> <br><i>${data.golongan_kata}</i><br><br>
                             <strong>Poomitanan panandatan:</strong><br>
                             ${formatContohAyat(data.contoh_ayat)}<br>
                         </div>
@@ -400,6 +389,8 @@
         function displayWords() {
             const wordListContainer = document.getElementById('wordListContainer');
             wordListContainer.innerHTML = "";
+            let count = 0; // Untuk mengira bilangan baris
+
             for (const [word, data] of Object.entries(database)) {
                 const wordElement = document.createElement('div');
                 wordElement.className = 'word-item';
@@ -407,6 +398,11 @@
                     <span class="word" onclick="openPopup('${word}')">• ${word}</span>
                 `;
                 wordListContainer.appendChild(wordElement);
+
+                count++;
+                if (count % 30 === 0) { // Jika mencapai 30 item (3 kolum x 10 baris)
+                    break; // Berhenti selepas 10 baris
+                }
             }
         }
 
@@ -418,9 +414,9 @@
                 popupContent.innerHTML = `
                     <div class="translation-item">
                         <strong>Hogot:</strong> <br>${word}<br><br>
-                        <strong>Kopodolinan:</strong> <br>${data.terjemahan}<br><br>
-                        <strong>Kotolinahasan:</strong> <br>${data.takrifan}<br><br>
-                        <strong>Nuludan boros:</strong> <br>${data.golongan_kata}<br><br>
+                        <strong>Kopodolinan:</strong> <br><i>${data.terjemahan}</i><br><br>
+                        <strong>Kotolinahasan:</strong> <br><i>${data.takrifan}</i><br><br>
+                        <strong>Nuludan boros:</strong> <br><i>${data.golongan_kata}</i><br><br>
                         <strong>Poomitanan panandatan:</strong><br>
                         ${formatContohAyat(data.contoh_ayat)}<br>
                     </div>
