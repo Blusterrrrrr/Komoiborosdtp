@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Reset beberapa gaya default browser */
-        body, h1, h2, form, input, button, div {
+        body, h1, form, input, button, div {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -20,16 +20,14 @@
             background-color: #f4f4f9;
             color: #333;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            height: 100vh;
             padding: 20px;
-            padding-top: 80px; /* Tambahkan padding untuk navigasi */
-            padding-bottom: 60px; /* Tambahkan padding untuk footer */
         }
 
         /* Container utama */
-        .container, .word-list {
+        .container {
             background-color: #ffffff;
             padding: 30px;
             border-radius: 0px;
@@ -37,30 +35,19 @@
             max-width: 800px;
             width: 100%;
             text-align: center;
-            margin: 20px auto;
-            min-height: 50vh; /* Tambahkan min-height untuk memastikan container tetap di tengah */
-            display: flex;
-            flex-direction: column;
-            justify-content: center; /* Pusatkan konten vertikal */
         }
 
         /* Judul halaman */
-        h1, h2 {
+        h1 {
             font-size: 24px;
             color: #2c3e50;
             margin-bottom: 20px;
-        }
-
-        h2 {
-            text-align: left;
         }
 
         /* Form input */
         form {
             display: flex;
             gap: 10px;
-            justify-content: center;
-            align-items: center;
         }
 
         /* Kotak input */
@@ -91,6 +78,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        button i {
+            font-size: 18px;
+            color: #fff;
         }
 
         button:hover {
@@ -143,13 +135,32 @@
             z-index: 999;
         }
 
+        .word-list {
+            margin-top: 20px;
+        }
+
+        .word-item {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .word {
+            cursor: pointer;
+            color: blue;
+            text-decoration: underline;
+        }
+
+        .word:hover {
+            color: darkblue;
+        }
+
         /* Gaya untuk navigasi */
         nav {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(0, 0, 0, 0);
             display: flex;
             justify-content: center;
             padding: 10px 0;
@@ -179,12 +190,21 @@
             background-color: #0056b3;
         }
 
-        /* Gaya untuk daftar kata di Interface 2 */
+        body {
+            padding-top: 60px;
+        }
+
         .word-list {
             text-align: left;
             padding: 20px;
             max-width: 800px;
             margin: auto;
+        }
+
+        .word-list h2 {
+            text-align: left;
+            font-size: 24px;
+            margin-bottom: 15px;
         }
 
         .word-item {
@@ -224,6 +244,13 @@
             flex-wrap: wrap;
         }
 
+        footer p::before {
+            content: "•";
+            font-weight: bold;
+            margin-right: 5px;
+            display: inline-block;
+        }
+
         footer a {
             color: #007bff;
             text-decoration: none;
@@ -232,6 +259,10 @@
 
         footer a:hover {
             text-decoration: underline;
+        }
+
+        body {
+            padding-bottom: 50px;
         }
     </style>
 </head>
@@ -242,15 +273,17 @@
         <button id="btnInterface2">Nuludan boros</button>
     </nav>
 
-    <!-- Interface 1: Penterjemah -->
+    <!-- kod untuk interface 1 -->
     <div class="container" id="interface1">
         <h1>Komoiboros Digital Boros Kadazandusun - Boros Melayu</h1>
-        <form id="translationForm">
-            <input type="text" id="kadazandusunText" name="kadazandusunText" placeholder="Posuango hogot hiti...">
+
+        <form>
+            <input type="text" id="kadazandusunText" name="kadazandusunText" placeholder="Posuango hogot hiti..."> 
             <button type="submit">
                 <i class="fas fa-magnifying-glass"></i>
             </button>
         </form>
+
         <!-- Area untuk menampilkan hasil terjemahan -->
         <div id="translationResult">
             Koilaan hogot...
@@ -258,26 +291,25 @@
     </div>
 
     <!-- Interface 2: Paparan Kata dari Database -->
-    <div class="container" id="interface2" style="display: none;">
+    <div class="word-list" id="interface2" style="display: none;">
         <h2>Nuludan boros id komoiboros diti:</h2>
         <div id="wordListContainer"></div>
     </div>
-
+    
     <!-- Pop-up -->
     <div id="overlay"></div>
     <div id="popup">
         <div id="popup-content"></div>
         <button onclick="closePopup()">Guli</button>
     </div>
-
     <footer>
         <div>
             <p>Winorun di <a href="https://www.linkedin.com/public-profile/settings?trk=d_flagship3_profile_self_view_public_profile">
                 Bluster Jainon</a>: Mokikinobos Boros Kadazandusun IPGMK Kent</p>
             <p><a href="mailto:g-ipgp21065792@moe-dl.edu.my">g-ipgp21065792@moe-dl.edu.my</a></p>
         </div>
-    </footer>
-
+    </footer>    
+    
     <script>
         let database = {
             "modop": {
@@ -290,19 +322,13 @@
                 "terjemahan": "benci",
                 "takrifan": "sikap tidak menyukai seseorang",
                 "golongan_kata": "kata sifat",
-                "contoh_ayat": "Asana oku no dialo. Saya benci dia."
+                "contoh_ayat": "Asana oku no dialo. Saya benci."
             },
             "ananam": {
                 "terjemahan": "enak",
                 "takrifan": "rasa sesuatu",
                 "golongan_kata": "kata sifat",
                 "contoh_ayat": "Ananam no ilo punti. Pisang itu enak. "
-            },
-            "isai": {
-                "terjemahan": "siapa",
-                "takrifan": "-",
-                "golongan_kata": "Kata tanya",
-                "contoh_ayat": "Isai molohing nu? Siapa orang tua kamu?"
             }
         };
 
@@ -397,7 +423,7 @@
         document.getElementById("btnInterface2").addEventListener("click", function() {
             document.getElementById("interface1").style.display = "none";
             document.getElementById("interface2").style.display = "block";
-            displayWords(); // Memuat ulang daftar kata saat beralih ke Interface 2
+            displayWords();
         });
 
         // Event listener untuk DOMContentLoaded
