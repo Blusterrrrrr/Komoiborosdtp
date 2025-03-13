@@ -7,263 +7,228 @@
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Reset beberapa gaya default browser */
-        body, h1, form, input, button, div {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Times New Roman", Times, serif;
-        }
+       /* Reset beberapa gaya default browser */
+body, h1, h2, form, input, button, div {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Times New Roman", Times, serif;
+}
 
-        /* Gaya untuk body */
-        body {
-            background-color: #f4f4f9;
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            padding: 20px;
-        }
+/* Gaya untuk body */
+body {
+    background-color: #f4f4f9;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    padding-top: 80px; /* Tambahkan padding untuk navigasi */
+    padding-bottom: 60px; /* Tambahkan padding untuk footer */
+}
 
-        /* Container utama */
-        .container {
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 0px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
-            width: 100%;
-            text-align: center;
-        }
+/* Container utama */
+.container, .word-list {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 0px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+    margin: 20px auto;
+}
 
-        /* Judul halaman */
-        h1 {
-            font-size: 24px;
-            color: #2c3e50;
-            margin-bottom: 20px;
-        }
+/* Judul halaman */
+h1, h2 {
+    font-size: 24px;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
 
-        /* Form input */
-        form {
-            display: flex;
-            gap: 10px;
-        }
+h2 {
+    text-align: left;
+}
 
-        /* Kotak input */
-        input[type="text"] {
-            padding: 10px;
-            font-size: 14px;
-            border: 1px solid #ccc;
-            border-radius: 0px;
-            outline: none;
-            flex: 1;
-        }
+/* Form input */
+form {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
 
-        input[type="text"]:focus {
-            border-color: #007bff;
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-        }
+/* Kotak input */
+input[type="text"] {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    outline: none;
+    flex: 1;
+}
 
-        /* Butang submit */
-        button {
-            padding: 10px 15px;
-            font-size: 16px;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
-            border-radius: 0px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+input[type="text"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
 
-        button i {
-            font-size: 18px;
-            color: #fff;
-        }
+/* Butang submit */
+button {
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 0px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-        button:hover {
-            background-color: #0056b3;
-        }
+button:hover {
+    background-color: #0056b3;
+}
 
-        /* Area hasil terjemahan */
-        #translationResult {
-            margin-top: 20px;
-            font-size: 16px;
-            color: #333;
-            text-align: left;
-            display: none;
-        }
+/* Area hasil terjemahan */
+#translationResult {
+    margin-top: 20px;
+    font-size: 16px;
+    color: #333;
+    text-align: left;
+    display: none;
+}
 
-        .translation-item {
-            padding: 10px;
-            margin-bottom: 10px;
-            background-color: #f3f3f3;
-            border: 1px solid #eee;
-            border-radius: 0px;
-        }
+.translation-item {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f3f3f3;
+    border: 1px solid #eee;
+    border-radius: 0px;
+}
 
-        .translation-item strong {
-            color: #007bff;
-        }
+.translation-item strong {
+    color: #007bff;
+}
 
-        /* Gaya untuk pop-up */
-        #popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            padding: 20px;
-            border: 1px solid #ccc;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-        }
+/* Gaya untuk pop-up */
+#popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
 
-        #overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 999;
-        }
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
 
-        .word-list {
-            margin-top: 20px;
-        }
+/* Gaya untuk navigasi */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
 
-        .word-item {
-            padding: 10px;
-            border-bottom: 1px solid #ccc;
-        }
+nav button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 0 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 0px;
+    transition: background-color 0.3s;
+    width: 150px;
+    height: 50px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-        .word {
-            cursor: pointer;
-            color: blue;
-            text-decoration: underline;
-        }
+nav button:hover {
+    background-color: #0056b3;
+}
 
-        .word:hover {
-            color: darkblue;
-        }
+/* Gaya untuk daftar kata di Interface 2 */
+.word-list {
+    text-align: left;
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+}
 
-        /* Gaya untuk navigasi */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: rgba(0, 0, 0, 0);
-            display: flex;
-            justify-content: center;
-            padding: 10px 0;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-        }
+.word-item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+}
 
-        nav button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            margin: 0 10px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 0px;
-            transition: background-color 0.3s;
-            width: 150px;
-            height: 50px;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+.word {
+    font-weight: bold;
+    color: #007bff;
+    transition: color 0.3s;
+}
 
-        nav button:hover {
-            background-color: #0056b3;
-        }
+.word:hover {
+    color: #0056b3;
+}
 
-        body {
-            padding-top: 60px;
-        }
+/* Gaya untuk footer */
+footer {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: rgb(0, 0, 0);
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    font-size: 14px;
+    box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1);
+}
 
-        .word-list {
-            text-align: left;
-            padding: 20px;
-            max-width: 800px;
-            margin: auto;
-        }
+footer div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
 
-        .word-list h2 {
-            text-align: left;
-            font-size: 24px;
-            margin-bottom: 15px;
-        }
+footer a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
 
-        .word-item {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-            cursor: pointer;
-        }
-
-        .word {
-            font-weight: bold;
-            color: #007bff;
-            transition: color 0.3s;
-        }
-
-        .word:hover {
-            color: #0056b3;
-        }
-
-        /* Gaya untuk footer */
-        footer {
-            background-color: rgba(255, 255, 255, 0.9);
-            color: rgb(0, 0, 0);
-            text-align: center;
-            padding: 10px 0;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-            font-size: 14px;
-            box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        footer div {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        footer p::before {
-            content: "•";
-            font-weight: bold;
-            margin-right: 5px;
-            display: inline-block;
-        }
-
-        footer a {
-            color: #007bff;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        body {
-            padding-bottom: 50px;
-        }
+footer a:hover {
+    text-decoration: underline;
+}
     </style>
 </head>
 <body>
@@ -273,28 +238,26 @@
         <button id="btnInterface2">Nuludan boros</button>
     </nav>
 
-    <!-- kod untuk interface 1 -->
-    <div class="container" id="interface1">
-        <h1>Komoiboros Digital Boros Kadazandusun - Boros Melayu</h1>
-
-        <form>
-            <input type="text" id="kadazandusunText" name="kadazandusunText" placeholder="Posuango hogot hiti..."> 
-            <button type="submit">
-                <i class="fas fa-magnifying-glass"></i>
-            </button>
-        </form>
-
-        <!-- Area untuk menampilkan hasil terjemahan -->
-        <div id="translationResult">
-            Koilaan hogot...
-        </div>
+<!-- Interface 1: Penterjemah -->
+<div class="container" id="interface1">
+    <h1>Komoiboros Digital Boros Kadazandusun - Boros Melayu</h1>
+    <form id="translationForm">
+        <input type="text" id="kadazandusunText" name="kadazandusunText" placeholder="Posuango hogot hiti..."> 
+        <button type="submit">
+            <i class="fas fa-magnifying-glass"></i>
+        </button>
+    </form>
+    <!-- Area untuk menampilkan hasil terjemahan -->
+    <div id="translationResult">
+        Koilaan hogot...
     </div>
+</div>
 
-    <!-- Interface 2: Paparan Kata dari Database -->
-    <div class="word-list" id="interface2" style="display: none;">
-        <h2>Nuludan boros id komoiboros diti:</h2>
-        <div id="wordListContainer"></div>
-    </div>
+<!-- Interface 2: Paparan Kata dari Database -->
+<div class="container" id="interface2" style="display: none;">
+    <h2>Nuludan boros id komoiboros diti:</h2>
+    <div id="wordListContainer"></div>
+</div>
     
     <!-- Pop-up -->
     <div id="overlay"></div>
@@ -420,17 +383,17 @@
             document.getElementById("overlay").style.display = "none";
         }
 
-        // Fungsi untuk navigation
-        document.getElementById("btnInterface1").addEventListener("click", function() {
-            document.getElementById("interface1").style.display = "block";
-            document.getElementById("interface2").style.display = "none";
-        });
+// Fungsi untuk navigation
+document.getElementById("btnInterface1").addEventListener("click", function() {
+    document.getElementById("interface1").style.display = "block";
+    document.getElementById("interface2").style.display = "none";
+});
 
-        document.getElementById("btnInterface2").addEventListener("click", function() {
-            document.getElementById("interface1").style.display = "none";
-            document.getElementById("interface2").style.display = "block";
-            displayWords();
-        });
+document.getElementById("btnInterface2").addEventListener("click", function() {
+    document.getElementById("interface1").style.display = "none";
+    document.getElementById("interface2").style.display = "block";
+    displayWords(); // Memuat ulang daftar kata saat beralih ke Interface 2
+});
 
         // Event listener untuk DOMContentLoaded
         document.addEventListener('DOMContentLoaded', function () {
