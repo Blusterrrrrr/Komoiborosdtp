@@ -404,7 +404,7 @@
                 const wordElement = document.createElement('div');
                 wordElement.className = 'word-item';
                 wordElement.innerHTML = `
-                    <span class="word" onclick="openPopup('${word}')">${word}</span>
+                    <span class="word" onclick="openPopup('${word}')">• ${word}</span>
                 `;
                 wordListContainer.appendChild(wordElement);
             }
