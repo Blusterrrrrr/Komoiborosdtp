@@ -23,7 +23,48 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            margin: 0;
             padding: 20px;
+            position: relative;
+        }
+        /* Gaya imeg bg */
+        body::before {
+            content: "";
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/WikiKaamatan_day_2_bj_102.jpg/1920px-WikiKaamatan_day_2_bj_102.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.9; /* 90% transparency */
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+        }
+		
+		/* Gaya untuk credit imej bg */
+		.credit {
+            position: fixed;
+            bottom: 55px; /* Jarak dari bawah, disesuaikan dengan tinggi footer */
+            right: 10px;
+            background-color: #ffffff00; /* Latar belakang semi-transparan */
+            padding: 8px 12px;
+            border-radius: 0px;
+            box-shadow: #ffffff33; /* Bayangan halus */
+            font-size: 0.9em;
+            color: #ffffff;
+            text-align: right;
+            backdrop-filter: blur(0px); /* Efek blur untuk latar belakang */
+            z-index: 1300; /* Pastikan kredit berada di atas footer */
+        }
+
+        .credit a {
+            color: #0073e6;
+            text-decoration: none;
+        }
+
+        .credit a:hover {
+            text-decoration: underline;
         }
 
         /* Container interface1 */
@@ -46,6 +87,8 @@
             max-width: 800px;
             width: 100%;
             text-align: center;
+            max-height: 70vh; /* Ketinggian maksimum untuk container */
+            overflow-y: auto; /* Membolehkan menatal jika kandungan terlalu panjang */
         }
         /* Judul halaman */
         h1 {
@@ -132,7 +175,7 @@
             border: 1px solid #ccc;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             z-index: 1000;
-			max-width: 500px;
+            max-width: 500px;
             width: 100%;
         }
 
@@ -150,13 +193,13 @@
         /* Gaya untuk grid layout */
         #wordListContainer {
             display: grid;
-            grid-template-columns: repeat(4, 1fr); /* 4 kolum */
-			column-gap: 20px; /* Jarak antara kolum */
-			row-gap: 1px; /* Jarak antara baris */
+            grid-template-columns: repeat(4, 1fr); /* 4 kolum pada desktop */
+            column-gap: 20px; /* Jarak antara kolum */
+            row-gap: 10px; /* Jarak antara baris */
         }
 
         .word-item {
-            padding: 2px;
+            padding: 10px;
             border: 0px solid #ccc;
             text-align: left;
             cursor: pointer;
@@ -170,6 +213,26 @@
 
         .word:hover {
             color: #0056b3;
+        }
+
+        /* Responsif untuk telefon bimbit */
+        @media (max-width: 600px) {
+            #wordListContainer {
+                grid-template-columns: repeat(2, 1fr); /* 2 kolum pada telefon bimbit */
+                column-gap: 10px; /* Kurangkan jarak antara kolum */
+            }
+
+            .container2 {
+                padding: 15px; /* Kurangkan padding pada telefon bimbit */
+            }
+
+            h1 {
+                font-size: 20px; /* Saiz fon yang lebih kecil untuk judul */
+            }
+
+            .word-item {
+                font-size: 14px; /* Saiz fon yang lebih kecil untuk item kata */
+            }
         }
 
         /* Gaya untuk navigasi */
@@ -217,12 +280,13 @@
             background-color: rgba(255, 255, 255, 0.9);
             color: rgb(0, 0, 0);
             text-align: center;
-            padding: 10px 0;
+            padding: 5px 0;
             position: fixed;
             width: 100%;
             bottom: 0;
             font-size: 14px;
             box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000; /* Pastikan footer berada di bawah kredit */
         }
 
         footer div {
@@ -291,6 +355,14 @@
         <div id="popup-content"></div>
         <button onclick="closePopup()">Guli</button>
     </div>
+	
+	<!-- Kredit gambar -->
+    <div class="credit">
+        Gambar oleh <a href="https://commons.wikimedia.org/wiki/File:WikiKaamatan_day_2_bj_102.jpg" target="_blank">Blusjai</a>, 
+        digunakan di bawah lisensi <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank">CC BY-SA 3.0</a>.
+    </div>
+	
+	<!-- footer -->	
     <footer>
         <div>
             <p>Winorun di <a href="https://www.linkedin.com/public-profile/settings?trk=d_flagship3_profile_self_view_public_profile">
@@ -300,67 +372,589 @@
     </footer>    
     
     <script>
-        let database =     {
-	"modop": {
-        "terjemahan": "tidur",
-        "takrifan": "dlm keadaan tidak sedar dgn mata terpejam (kerana berehat)",
-        "golongan_kata": "kata kerja",
-        "contoh_ayat": "modop oku. saya tidur."
-    },
-        "asana": {
-        "terjemahan": "benci",
-        "takrifan": "sikap tidak menyukai",
-        "golongan_kata": "kata sifat",
-        "contoh_ayat": "Asana oku no dialo. Saya benci dia."
-    },
-        "ananam": {
-        "terjemahan": "enak",
-        "takrifan": "sedap, nyaman",
-        "golongan_kata": "kata sifat",
-        "contoh_ayat": "Ananam no ilo punti. Pisang itu enak. "
-    },
-        "atod": {
-        "terjemahan": "hantar",
-        "takrifan": "-",
-        "golongan_kata": "kata kerja",
-        "contoh_ayat": "-"
-    },
-        "a'adang": {
-        "terjemahan": "seimbang",
-        "takrifan": "setimbang, sama berat, tidak berat sebelah",
-        "golongan_kata": "kata sifat",
-        "contoh_ayat": "Aadang oo kinoilihan dilo tindikohon. Kerusi itu berada dalam keadaan seimbang."
-    },
-        "aagab": {
-        "terjemahan": "tergesa-gesa",
-        "takrifan": "bergopoh-gapah, terburu-buru, cepat-cepat",
-        "golongan_kata": "kata sifat",
-        "contoh_ayat": "Aagab po isio mamanau moi sikul tu nokoloboi. Dia tergesa-gesa berjalan ke sekolah kerana bangun lewat."
-    },
-        "abal": {
-        "terjemahan": "khabar",
-        "takrifan": "perkhabaran laporan tentang sesuatu hal atau kejadian, berita, warta",
-        "golongan_kata": "kata nama",
-        "contoh_ayat": "Nunu abal di kaantakan konihab. Apa khabar tentang perisitiwa kemarin."
-    },
-        "aagat": {
-        "terjemahan": "berat",
-        "takrifan": "kuat tekanannya apabila diangkat; tidak mudah diangkat atau dibawa",
-        "golongan_kata": "kata sifat",
-        "contoh_ayat": "Aagat basung dilo tu sinuangan do tawadak. Bakul berisi labu kuning itu berat."
-    },
-        "abaabayan": {
-        "terjemahan": "aktiviti",
-        "takrifan": "sesuatu yg dilakukan; kegiatan; usaha",
-        "golongan_kata": "kata nama",
-        "contoh_ayat": "Ogumu tomod abaabayan ontok timpu diti. Banyak program pada masa ini."
-    },
-        "bagas": {
-        "terjemahan": "kesan",
-        "takrifan": "tanda yg ditinggalkan oleh sesuatu, bekas",
-        "golongan_kata": "kata nama",
-        "contoh_ayat": "Pomonsoi iso hiis di kapanahak bagas tosonong om taralom kumaa ginumuan. Cipta satu sajak Kadazandusun yang dapat memberi kesan yang baik serta mendalam terhadap orang ramai."
-    }
+	let database = {
+            "aadang": {
+                "terjemahan": "seimbang",
+                "takrifan": "setimbang, sama berat, tidak berat sebelah",
+                "golongan_kata": "kata sifat",
+                "contoh_ayat": "Aadang oo kinoilihan dilo tindikohon. Kerusi itu berada dalam keadaan seimbang."
+            },
+            "aagab": {
+                "terjemahan": "tergesa-gesa",
+                "takrifan": "bergopoh-gapah, terburu-buru, cepat-cepat",
+                "golongan_kata": "kata sifat",
+                "contoh_ayat": "Aagab po isio mamanau moi sikul tu nokoloboi. Dia tergesa-gesa berjalan ke sekolah kerana bangun lewat."
+            },
+            "ababak": {
+                "terjemahan": "akan pecah",
+                "takrifan": "akan berbelah-belah menjadi kecil-kecil (benda keras)",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "Ababak ilo sangkir. Cangkir itu akan pecah."
+            },
+            "abal": {
+                "terjemahan": "khabar",
+                "takrifan": "perkhabaran laporan tentang sesuatu hal atau kejadian, berita, warta",
+                "golongan_kata": "kata nama",
+                "contoh_ayat": "Nunu abal di kaantakan konihab. Apa khabar tentang perisitiwa kemarin."
+            },
+            "abalantas": {
+                "terjemahan": "fasih",
+                "takrifan": "lancar dan baik sebutannya (ketika bercakap-cakap), petah",
+                "golongan_kata": "kata sifat",
+                "contoh_ayat": "Abalantas isio momboros do Boros Kadazandusun. Dia fasih bercakap dalam Bahasa Kadazandusun."
+            },
+            "agagas": {
+                "terjemahan": "kurus",
+                "takrifan": "kurang berdaging (tubuh dll), tidak gemuk atau gempal",
+                "golongan_kata": "kata sifat",
+                "contoh_ayat": "Agagas ko no. Kau kurus sudah."
+            },
+            "agahui": {
+                "terjemahan": "kurus",
+                "takrifan": "kurang berdaging (tubuh dll), tidak gemuk atau gempal",
+                "golongan_kata": "kata sifat",
+                "contoh_ayat": "agahui ko no. Kau kurus sudah."
+            },
+            "agaan": {
+                "terjemahan": "ringan",
+                "takrifan": "tidak berat, enteng",
+                "golongan_kata": "kata sifat",
+                "contoh_ayat": "Agaan ko. Kau ringan."
+            },
+            "aiso": {
+                "terjemahan": "tiada",
+                "takrifan": "tidak ada",
+                "golongan_kata": "kata tugas",
+                "contoh_ayat": "Aiso walai hiti. Tiada rumah di sini."
+            },
+            "andad": {
+                "terjemahan": "tunggu",
+                "takrifan": "menunggu",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "Moi andad hilo soborong. Pergi tunggu di seberang."
+            },
+            "ananam": {
+                "terjemahan": "enak",
+                "takrifan": "sedap, nyaman",
+                "golongan_kata": "kata sifat",
+                "contoh_ayat": "Ananam no ilo punti. Pisang itu enak."
+            },
+            "angabagos": {
+                "terjemahan": "rajin semuanya",
+                "takrifan": "semua melakukan tugas dengan produktif",
+                "golongan_kata": "kata sifat",
+                "contoh_ayat": "Angabagos ngawi tangaanak di Kolumpisau. Anak-anak Kolumpisau kesemuanya rajin."
+            },
+            "angog": {
+                "terjemahan": "tengadah",
+                "takrifan": "memandang ke atas, lwn tunduk",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "Angog hilo tawan. Tengadah ke awan."
+            },
+            "arasang": {
+                "terjemahan": "marah",
+                "takrifan": "berasa panas hati kerana ditipu (dihina dll), perasaan panas hati, berang, gusar, murka",
+                "golongan_kata": "kata sifat",
+                "contoh_ayat": "Arasang oku di tanak ku. Saya marah dengan anak saya."
+            },
+            "asana": {
+                "terjemahan": "benci",
+                "takrifan": "sikap tidak menyukai",
+                "golongan_kata": "kata sifat",
+                "contoh_ayat": "Asana oku no dialo. Saya benci dia."
+            },
+            "atod": {
+                "terjemahan": "hantar",
+                "takrifan": "-",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "-"
+            },
+            "babang": {
+                "terjemahan": "cahaya",
+                "takrifan": "pancaran yg datangnya dr objek yg bersinar (matahari, lampu, api, dll)",
+                "golongan_kata": "kata nama",
+                "contoh_ayat": "Babang da tulan. Cahaya bulan itu."
+            },
+            "badung": {
+                "terjemahan": "berdagang",
+                "takrifan": "menjalankan perniagaan biasanya di tempat asing atau dgn pembeli atau penjual dr tempat (negeri) asing, berniaga, berjual beli",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "Mongoi badung. Pergi berdagang."
+            },
+            "badi": {
+                "terjemahan": "tamu",
+                "takrifan": "pekan (pasar) sehari/baazar",
+                "golongan_kata": "kata nama",
+                "contoh_ayat": "Kano moi hilo tamu. Jom kita ke pasar."
+            },
+            "bagal": {
+                "terjemahan": "cukup",
+                "takrifan": "tidak kurang (bilangan, banyak, besar, dll), sampai jumlahnya (besarnya dll)",
+                "golongan_kata": "kata sifat",
+                "contoh_ayat": "Bagal no ti naanu-anu dati baino. Cukup sudah pendapatan kita hari ini."
+            },
+            "balatak": {
+                "terjemahan": "bakul",
+                "takrifan": "bekas (tempat menaruh barang) yg dianyam (drpd rotan, buluh, dll), keranjang",
+                "golongan_kata": "kata nama",
+                "contoh_ayat": "Onuo po ilo balatak. Ambilkan bakul itu."
+            },
+            "banat": {
+                "terjemahan": "singlet",
+                "takrifan": "baju dalam tanpa lengan (utk lelaki)",
+                "golongan_kata": "kata nama",
+                "contoh_ayat": "Sulungai at banat nu, mamanau kito. Pakai singlet kamu, kita bertolak."
+            },
+            "bangkad": {
+                "terjemahan": "baju",
+                "takrifan": "pakaian utk menutup badan",
+                "golongan_kata": "kata nama",
+                "contoh_ayat": "Oluso ino bangkad nu. Tanggalkan baju awak."
+            },
+            "bontugo": {
+                "terjemahan": "hormat",
+                "takrifan": "mempunyai pandangan yg tinggi terhadap seseorang dgn memberikan layanan yg penuh sopan, khidmat, takzim",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "Huramato no molohing dokoyu. Hormat orang tua kamu."
+            },
+            "dinoot": {
+                "terjemahan": "kerakusan",
+                "takrifan": "kegelojohan, kelahapan",
+                "golongan_kata": "kata sifat",
+                "contoh_ayat": "Dinoot da wogok mangakan. Babi itu makan dengan gelojoh."
+            },
+            "dompuran": {
+                "terjemahan": "dapur",
+                "takrifan": "tempat atau ruangan memasak",
+                "golongan_kata": "kata nama",
+                "contoh_ayat": "Mogonsok ii tina ku hilo dompuran. Ibu saya memasak di dapur."
+            },
+            "doros": {
+                "terjemahan": "dekat",
+                "takrifan": "tidak jauh jaraknya atau antaranya dr, hampir",
+                "golongan_kata": "kata arah",
+                "contoh_ayat": "Indikau hiti dorosku. Duduk di sini dekat saya."
+            },
+            "dunsul": {
+                "terjemahan": "tukul",
+                "takrifan": "penukul pemukul (kecil), martil",
+                "golongan_kata": "kata nama",
+                "contoh_ayat": "Onuo ilo dunsul. Ambilkan tukul itu."
+            },
+            "duso": {
+                "terjemahan": "dosa",
+                "takrifan": "perbuatan melanggar hukum Tuhan atau agama",
+                "golongan_kata": "kata nama",
+                "contoh_ayat": "Ogumu no duso nu. Kau banyak dosa."
+            },
+            "gaab": {
+                "terjemahan": "keinginan",
+                "takrifan": "apa-apa yg diingini atau diinginkan, kehendak, kemahuan",
+                "golongan_kata": "kata nama",
+                "contoh_ayat": "Nunu gaab nu id koposion. Apa keinginan kamu dalam kehidupan."
+            },
+            "gaang": {
+                "terjemahan": "rekahan",
+                "takrifan": "pecahan, retakan, belahan",
+                "golongan_kata": "kata nama",
+                "contoh_ayat": "Alaab no dii lo gaang hilo tobon. Rekahan di dinding itu semakin luas."
+            },
+            "gansau": {
+                "terjemahan": "suka merayau",
+                "takrifan": "keinginan untuk berjalan-jalan yang tinggi",
+                "golongan_kata": "kata sifat",
+                "contoh_ayat": "Gansau ko no iya. Kau memang suka merayau."
+            },
+            "gansing": {
+                "terjemahan": "kain buruk",
+                "takrifan": "kain yang sudah lama dan usang",
+                "golongan_kata": "kata nama",
+                "contoh_ayat": "Onuai oku do gansing. Ambilkan saya kain buruk."
+            },
+            "gapu": {
+                "terjemahan": "dahan mati",
+                "takrifan": "dahan yang sudah berpisah dari pohon",
+                "golongan_kata": "kata nama",
+                "contoh_ayat": "Kada ingkakat hino, orotuan ko do gapu. Jangan berdiri di situ, nanti kamu ditimpah dahan mati."
+            },
+            "gapus": {
+                "terjemahan": "peluk",
+                "takrifan": "dakap",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "gapus po di apa nu. Peluk dulu ayah kamu."
+            },
+            "gatang": {
+                "terjemahan": "harga",
+                "takrifan": "nilai sesuatu barang dgn (kiraan) wang",
+                "golongan_kata": "kata nama",
+                "contoh_ayat": "Piro gatang diti sada?. Berapa harga ikan ini?."
+            },
+            "giak": {
+                "terjemahan": "jerit",
+                "takrifan": "jeritan",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "Kada giak. Jangan jerit."
+            },
+            "gimat": {
+                "terjemahan": "azimat",
+                "takrifan": "bahan yg terdiri drpd tulisan yg ditulis pd kertas, kain, keratan kayu tertentu, atau sisik tenggiling yg dipakai pd bahagian ter­tentu tubuh (spt di pinggang) yg dianggap mem­punyai sakti dan boleh mengelakkan penya­kit, bencana, dsb.",
+                "golongan_kata": "kata nama",
+                "contoh_ayat": "Kada ukabo ilo pati ku, tu haro gimat ku hilo. Jangan buka peti saya, sbab ada azimat di situ."
+            },
+            "ginawo": {
+                "terjemahan": "hati",
+                "takrifan": "organ berwarna perang ke­merah-merahan di dlm tubuh yg menge­luarkan hempedu dan membersih­kan darah",
+                "golongan_kata": "kata nama",
+                "contoh_ayat": "Amu olidas aa ginawoku. Hati saya tidak sihat."
+            },
+            "hakut": {
+                "terjemahan": "ikut",
+                "takrifan": "turut serta, turut sama, bersama-sama",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "Kada hakut doho adi. Adi, jangan ikut saya."
+            },
+            "hibok": {
+                "terjemahan": "pergi",
+                "takrifan": "berjalan ke tempat lain",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "Kada po hibok. Jangan dulu pergi."
+            },
+            "honggo": {
+                "terjemahan": "di mana",
+                "takrifan": "kata tanya untuk mengetahui tempat",
+                "golongan_kata": "kata tanya",
+                "contoh_ayat": "Honggo walai nu?. Di mana rumah kamu?."
+            },
+            "hontolon": {
+                "terjemahan": "tujuan",
+                "takrifan": "arah, hala, haluan",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "Nunu hontolon nu mooi hiti. Apa tujuan kamu ke sini."
+            },
+            "hopod": {
+                "terjemahan": "sepuluh",
+                "takrifan": "bilangan sembilan dgn satu",
+                "golongan_kata": "kata nama",
+                "contoh_ayat": "Hopod korita ku hilo walai. Sepuluh kereta saya di rumah."
+            },
+            "hurak": {
+                "terjemahan": "koyak",
+                "takrifan": "carik, rabak, sobek",
+                "golongan_kata": "kata sifat",
+                "contoh_ayat": "Tombiro lo hurak ad bangkad nu. Jahit koyakan di baju kamu."
+            },
+            "huramato": {
+                "terjemahan": "hormat",
+                "takrifan": "mempunyai pandangan yg tinggi terhadap seseorang dgn memberikan layanan yg penuh sopan, khidmat, takzim",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "Huramato no molohing dokoyu. Hormat orang tua kamu."
+            },
+            "iduanai": {
+                "terjemahan": "tinggalkan",
+                "takrifan": "membiarkan sesuatu di tempat dan pergi",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "Iduanai nopo ilo kantung nu. Tinggalkan sahaja beg awak."
+            },
+            "igit": {
+                "terjemahan": "pegang",
+                "takrifan": "berpegang, memegang",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "Kada igit doho!. Jangan pegang saya!."
+            },
+            "ihibai": {
+                "terjemahan": "tuangkan",
+                "takrifan": "menuang 1 mencurahkan benda cair dr sesuatu bekas",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "Ihibai oku do sanggalas kupi. Tuangkan saya satu gelas kopi."
+            },
+            "ihumo": {
+                "terjemahan": "cari",
+                "takrifan": "berusaha utk mendapat (menjumpai dll) sesuatu",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "Ongoi ihumo it rasuk ku hilo. Pergi cari baju saya di sana."
+            },
+            "ilang": {
+                "terjemahan": "kongsi",
+                "takrifan": "memberikan sesuatu milik kita kepada orang lain untuk diguna/dimiliki bersama",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "Kada ilang do takano ku. Jangan kongsi makanan saya."
+            },
+            "ilob": {
+                "terjemahan": "muntah",
+                "takrifan": "keluar kembali drpd mulut (barang yg dimakan dll)",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "kada ilob hino. Jangan muntah di situ."
+            },
+            "inai": {
+                "terjemahan": "mak cik",
+                "takrifan": "ibu saudara",
+                "golongan_kata": "kata nama",
+                "contoh_ayat": "Nonggo ngoyon nu inai?. Kamu hendak ke mana makcik."
+            },
+            "indahu": {
+                "terjemahan": "turun",
+                "takrifan": "dr tempat yg lebih tinggi ke tempat yg lebih rendah, dr atas ke bawah, lwn naik",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "indahu mantad hino. Turun dari situ."
+            },
+            "indakod": {
+                "terjemahan": "naik",
+                "takrifan": "bergerak ke atas",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "Indakod hiti walai. Naik sini rumah."
+            },
+            "ingga": {
+                "terjemahan": "tiada",
+                "takrifan": "tidak ada",
+                "golongan_kata": "kata tugas",
+                "contoh_ayat": "Ingaa walai hiti. Tiada rumah di sini."
+            },
+            "insawat": {
+                "terjemahan": "naik",
+                "takrifan": "bergerak ke atas",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "insawat hiti walai. Naik sini rumah."
+            },
+            "intuhun": {
+                "terjemahan": "turun",
+                "takrifan": "dr tempat yg lebih tinggi ke tempat yg lebih rendah, dr atas ke bawah, lwn naik",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "Intuhun mantad hino. Turun dari situ."
+            },
+            "inum": {
+                "terjemahan": "minum",
+                "takrifan": "meneguk atau mene­lan sesuatu yg cair (air, susu, dll)",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "Inum po waig. Minum dulu air."
+            },
+            "iso": {
+                "terjemahan": "satu",
+                "takrifan": "angka pertama ketika membilang",
+                "golongan_kata": "kata nama",
+                "contoh_ayat": "Iso ko no hiti kah?. Kau satu orang di sini?."
+            },
+            "kaad": {
+                "terjemahan": "lelangit mulut",
+                "takrifan": "bahagian dalam mulut",
+                "golongan_kata": "kata nama",
+                "contoh_ayat": "Nokosokot at takano ad kaad dilo tingau. Makanan itu melekat di lelangit mulut kucing."
+            },
+            "kagagang": {
+                "terjemahan": "terkejut",
+                "takrifan": "terperanjat, tersentak, kaget",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "Kagagang oku nokokito do salasak. Saya terkejut melihat cicak."
+            },
+            "kakamot": {
+                "terjemahan": "perkakas",
+                "takrifan": "benda-benda yg digunakan utk membuat sesuatu pekerjaan (memasak, ber­tukang, dll), alat",
+                "golongan_kata": "kata nama",
+                "contoh_ayat": "Onuo ilo kakamot ku. Ambilkan perkakas saya"
+            },
+            "kinis": {
+                "terjemahan": "koyak",
+                "takrifan": "carik, rabak, sobek",
+                "golongan_kata": "kata sifat",
+                "contoh_ayat": "Tombiro lo kinis ad bangkad nu. Jahit koyakan di baju kamu."
+            },
+            "koihum": {
+                "terjemahan": "dapat mencari",
+                "takrifan": "dapat menjumpai sesuatu",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "Koihum kito sada hiti. Kita dapat mencari ikan di sini."
+            },
+            "koikod": {
+                "terjemahan": "batuk",
+                "takrifan": "berbatuk mengeluarkan nafas dr paru-paru dgn keras dan bising bunyinya",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "Kosuab po om koikod no yau. Subuh lagi dan di sudah batuk."
+            },
+            "koindakod": {
+                "terjemahan": "memanjat",
+                "takrifan": "boleh bergerak ke atas",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "Koindakod ko da piasau. Adakah kau boleh memanjat kelapa itu."
+            },
+            "kogos": {
+                "terjemahan": "ikatan",
+                "takrifan": "simpulan pada tali",
+                "golongan_kata": "kata nama",
+                "contoh_ayat": "iduo ilo kogos. Buka ikatan itu."
+            },
+            "kohuyas": {
+                "terjemahan": "telah rosak",
+                "takrifan": "sesuatu yang telah pecah dan sd tidak boleh dipakai",
+                "golongan_kata": "kata sifat",
+                "contoh_ayat": "Kohuyas ilo mumuhau noulakan nu. Penyapu itu rosak kerana kau pijak."
+            },
+            "koroton": {
+                "terjemahan": "kerat",
+                "takrifan": "memotong, memenggal, meman­cung (kepala)",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "Koroton ilo tulu da manuk. Kerat kepala ayam itu."
+            },
+            "korumbak": {
+                "terjemahan": "telah rosak",
+                "takrifan": "sesuatu yang telah pecah dan sd tidak boleh dipakai",
+                "golongan_kata": "kata sifat",
+                "contoh_ayat": "korumbak ilo mumuhau noulakan nu. Penyapu itu rosak kerana kau pijak."
+            },
+            "magandad": {
+                "terjemahan": "menunggu",
+                "takrifan": "menunggu",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "Magandad oku dia hiti. Saya tunggu awak di sini."
+            },
+            "mabpanabo": {
+                "terjemahan": "menangkap",
+                "takrifan": "memegang sesuatu dgn tangan atau alat, memegang sesuatu yg ber­gerak cepat dll (dan tidak melepaskan­nya), me­m­erangkap binatang dsb",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "Mabpanabo do tombolog ilo tingau. Kucing it menangkap burung."
+            },
+            "mamagakom": {
+                "terjemahan": "menerkam",
+                "takrifan": "melompati (utk menyerang, menangkap, dll), menerkap, menerpa",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "Mamagakom ilo tasu dau. Anjing dia menerkam."
+            },
+            "migit": {
+                "terjemahan": "memegang",
+                "takrifan": "memaut (menggenggam, men­capai) dgn tangan, menangkap (pencuri dll)",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "Migit do batos. Memegang janji."
+            },
+            "minomusorou": {
+                "terjemahan": "memikirkan",
+                "takrifan": "menggunakan akal (utk menyelesaikan sesuatu), merenungkan, mempertimbangkan (dlm fikiran)",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "Minomusorou oku do laang mogonsok takano. Saya memikirkan cara memasak nasi."
+            },
+            "modop": {
+                "terjemahan": "tidur",
+                "takrifan": "dlm keadaan tidak sedar dgn mata terpejam (kerana berehat)",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "modop oku. saya tidur."
+            },
+            "mogidu": {
+                "terjemahan": "melarikan diri",
+                "takrifan": "pergi dan meninggalkan tempat asal",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "Kada mogidu mantad pogun. Jangan melarikan diri dari negara."
+            },
+            "mongimbogu": {
+                "terjemahan": "cemburu",
+                "takrifan": "iri hati (kerana orang lain pandai, berharta, dll)",
+                "golongan_kata": "kata sifat",
+                "contoh_ayat": "Mongimbogu it sawoku. Isteri saya cemburu."
+            },
+            "mongindad": {
+                "terjemahan": "menunggu",
+                "takrifan": "menunggu",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "Mongindad oku dia hiti. Saya tunggu awak di sini."
+            },
+            "nagabus": {
+                "terjemahan": "tertanggal",
+                "takrifan": "terlepas (drpd pegangan, genggaman, ikatan, dll)",
+                "golongan_kata": "kata sifat",
+                "contoh_ayat": "nagabus ino rasuk nu. Baju awak tertanggal."
+            },
+            "obigod": {
+                "terjemahan": "boleh dilontar",
+                "takrifan": "boleh dibaling dan dilontar",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "Obigod ilo mangga hudi. Mangga itu boleh dilontar."
+            },
+            "odomut": {
+                "terjemahan": "lambat",
+                "takrifan": "tidak cepat atau lekas (pergerakan dll), perlahan-lahan",
+                "golongan_kata": "kata sifat",
+                "contoh_ayat": "Odomut no yau mamanau. Lambat sungguh dia berjalan."
+            },
+            "oinggolou": {
+                "terjemahan": "pening",
+                "takrifan": "sakit kepala",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "Oinggolou tulu ku. Kepala saya pening"
+            },
+            "ondom": {
+                "terjemahan": "ingat",
+                "takrifan": "masih ada dlm fikiran, tidak lupa",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "Ondom ku ia. Saya ingat kau."
+            },
+            "osonong": {
+                "terjemahan": "baik",
+                "takrifan": "tidak jahat kelakuannya",
+                "golongan_kata": "kata sifat",
+                "contoh_ayat": "Osonong isio. Dia baik."
+            },
+            "otogod": {
+                "terjemahan": "marah",
+                "takrifan": "berasa panas hati kerana ditipu (dihina dll), perasaan panas hati, berang, gusar, murka",
+                "golongan_kata": "kata sifat",
+                "contoh_ayat": "Otogod oku di tanak ku. Saya marah dengan anak saya."
+            },
+            "oungos": {
+                "terjemahan": "rimas",
+                "takrifan": "merasa tidak selesa",
+                "golongan_kata": "kata sifat",
+                "contoh_ayat": "oungos oku no mindikau hiti. Saya tidak selesa duduk di sini."
+            },
+            "pagawasan": {
+                "terjemahan": "tandas",
+                "takrifan": "bilik khas (di tempat awam, sekolah, pejabat, dsb) tempat membuang air (yg di­lengkapi dgn mangkuk tandas, sink, dsb), bilik air",
+                "golongan_kata": "kata nama",
+                "contoh_ayat": "Mooi okupo pagawasan. Saya pergi tandas dahulu."
+            },
+            "piogutan": {
+                "terjemahan": "pertelingkahan",
+                "takrifan": "perihal bertingkah, perbalah-an, perselisihan, persengketaan, per­tikaian",
+                "golongan_kata": "kata nama",
+                "contoh_ayat": "Nunu o piogutan dokoyu?. Apa pertelingkahan kamu?"
+            },
+            "pinsakatai": {
+                "terjemahan": "lekatkan",
+                "takrifan": "menampalkan sesuatu pada sebarang permukaan",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "Pinsakatai ilo barang do gatang. Lekatkan barang-barang itu dengan harga."
+            },
+            "poingkuro": {
+                "terjemahan": "bagaimana",
+                "takrifan": "kata tanya (menanyakan hal), betapa",
+                "golongan_kata": "kata tanya",
+                "contoh_ayat": "Poingkuro mogonsok takano. Bagaimana memasak nasi."
+            },
+            "popoikum": {
+                "terjemahan": "membuatkan seseorang menjadi malu",
+                "takrifan": "melakukan sesuatu yang membuat orang lain merasa aib",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "Popoikum do molohing. Memalukan orang tua."
+            },
+            "rasuk": {
+                "terjemahan": "baju",
+                "takrifan": "pakaian utk menutup badan",
+                "golongan_kata": "kata nama",
+                "contoh_ayat": "Oluso ino rasuk nu. Tanggalkan baju awak."
+            },
+            "sumaap": {
+                "terjemahan": "menentang",
+                "takrifan": "melawan (musuh, lawan, dll), menyangkal",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "Kada sumaap do molohing. Jangan menentang orang tua."
+            },
+            "tikagang": {
+                "terjemahan": "tulang rusuk",
+                "takrifan": "tulang yang menjadi penyokong dan pelindung kepada organ paru-paru",
+                "golongan_kata": "kata nama",
+                "contoh_ayat": "Kada bobogo ilo tikagang dau. Jangan pukul tulang rusuk dia."
+            },
+            "ulito": {
+                "terjemahan": "ulang semula",
+                "takrifan": "balik pula, kembali dr permulaan, kembali semula",
+                "golongan_kata": "kata kerja",
+                "contoh_ayat": "Ulito kawagu momboros. Ulang semula membaca."
+            }
         };
 
         // Fungsi untuk memformat contoh ayat
@@ -417,10 +1011,7 @@
                 `;
                 wordListContainer.appendChild(wordElement);
 
-                count++;
-                if (count % 30 === 0) { // Jika mencapai 30 item (3 kolum x 10 baris)
-                    break; // Berhenti selepas 10 baris
-                }
+
             }
         }
 
